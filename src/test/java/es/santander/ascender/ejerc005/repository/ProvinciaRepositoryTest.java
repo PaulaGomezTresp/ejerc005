@@ -20,6 +20,7 @@ public class ProvinciaRepositoryTest {
         public void testCreate() {
                 Provincia provincia = new Provincia();
                 provincia.setNombre("Cantabria");
+                provincia.setPais_id(45l);
                          
 
                 repository.save(provincia);
@@ -33,6 +34,7 @@ public class ProvinciaRepositoryTest {
         public void delete() {
             Provincia provincia = new Provincia();
             provincia.setNombre("Cantabria");
+            provincia.setPais_id(45l);
                    
 
             repository.save(provincia);
@@ -47,6 +49,7 @@ public class ProvinciaRepositoryTest {
         public void update() {
             Provincia provincia = new Provincia();
             provincia.setNombre("Cantabria");
+            provincia.setPais_id(45l);
                      
 
             repository.save(provincia);

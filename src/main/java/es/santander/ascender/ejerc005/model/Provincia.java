@@ -16,6 +16,9 @@ public class Provincia {
     @Column(name = "nombre", nullable = false, unique = true)
     private String nombre;
 
+    @Column(name = "pais_id", nullable = false)
+    private Long pais_id;
+
     public Long getId() {
         return id;
     }
@@ -30,5 +33,13 @@ public class Provincia {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Long getPais_id() {
+        return pais_id;
+    }
+
+    public void setPais_id(Long pais_id) {
+        this.pais_id = pais_id;
     }
 }
