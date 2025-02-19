@@ -16,7 +16,7 @@ import es.santander.ascender.ejerc005.model.Provincia;
 import es.santander.ascender.ejerc005.service.ProvinciaService;
 
 @RestController
-@RequestMapping
+@RequestMapping ("/api/provincia")
 public class ProvinciaController {
 
     @Autowired
