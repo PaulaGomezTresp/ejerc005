@@ -1,9 +1,12 @@
 package es.santander.ascender.ejerc005.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,52 +19,69 @@ public class PaisRepositoryTest {
     @Autowired
     private PaisRepository repository;
 
-     @Test
-        public void testCreate() {
-                Pais pais = new Pais();
-                pais.setNombre("España");
-                pais.setDescripcion("Pais muy bonito");
-                pais.setContinente("Europa");
-                         
+    private Pais paisCreado;
 
-                repository.save(pais);
+    @BeforeEach
+    public void setUp() {
+        paisCreado = getPaisYAlmacena();
+    }
+
+    @Test
+    public void testFindById() {
+                Pais paisEncontrado = repository
+                                                .findById(paisCreado.getId())
+                                                .get();
+
+                assertEquals("España", paisEncontrado.getNombre()); 
+                assertEquals("Es un país muy bonito", paisEncontrado.getDescripcion()); 
+                assertEquals("Europa", paisEncontrado.getContinente()); 
+                
+        }
+
+
+        @Test
+        public void testFind() {
+    
+            List<Pais> paises = repository
+                                            .findAll();
+
+            assertTrue(paises.size() >= 1);
+            }        
+
+    private Pais getPaisYAlmacena() {
+        Pais pais= new Pais();
+        pais.setNombre("España");
+        pais.setDescripcion("Es un país muy bonito");
+        pais.setContinente("Europa");
+        repository.save(pais);
+        return pais;
+    }
+
+     @Test
+    public void testCreate() {
                 assertTrue(
                                 repository
-                                                .findById(pais.getId())
+                                                .findById(paisCreado.getId())
                                                 .isPresent());
         }
 
         @Test
         public void delete() {
-            Pais pais = new Pais();
-            pais.setNombre("España");
-            pais.setDescripcion("Pais muy bonito");
-            pais.setContinente("Europa");
-                   
-
-            repository.save(pais);
                 assertTrue(
                                 repository
-                                                .findById(pais.getId())
+                                                .findById(paisCreado.getId())
                                                 .isPresent());
-                repository.deleteById(pais.getId());
+                repository.deleteById(paisCreado.getId());
         }
 
         @Test
         public void update() {
-            Pais pais = new Pais();
-            pais.setNombre("España");
-            pais.setDescripcion("Pais muy bonito");
-            pais.setContinente("Europa");
-                     
-
-            repository.save(pais);
                 assertTrue(
                                 repository
-                                                .existsById(pais.getId()));
-                pais.setNombre("Francia");
-                repository.save(pais);
-                Optional<Pais> updatedPais= repository.findById(pais.getId());
+                                                .existsById(paisCreado.getId()));
+                paisCreado.setNombre("Francia");
+                repository.save(paisCreado);
+                Optional<Pais> updatedPais= repository.findById(paisCreado.getId());
                 assertTrue(updatedPais.isPresent());
                 assertTrue(updatedPais.get().getNombre() == "Francia");
         }
