@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -20,25 +20,20 @@ public class Documento {
     private Long id;
 
     @Length(max = 256)
-    @Length (min = 1)
-    @NotNull
-    @Column (name = "nombre",unique = true)
+    @NotBlank
     private String nombre;
 
     @Length(max = 15)
     @Length(min = 0)
-    @Column (name = "extension")
     private String extension;
 
     @NotNull
-    @Column (name = "persona_id")
     private Long persona_id;
 
     @CreationTimestamp
-    @Column (name = "fecha")
     private LocalDate fecha;
 
-    @Column (name = "borrado", nullable = false)
+    @NotNull
     private boolean borrado;
 
     public Long getId() {
