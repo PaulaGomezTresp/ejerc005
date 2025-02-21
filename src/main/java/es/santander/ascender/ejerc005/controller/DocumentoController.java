@@ -3,6 +3,7 @@ package es.santander.ascender.ejerc005.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +29,14 @@ public class DocumentoController {
     }
 
     @GetMapping("/{id}")
-    public Documento read(@PathVariable("id") Long id) {
-        return documentoService.read(id);
+    public ResponseEntity<Documento> read(@PathVariable("id") Long id) {
+        Documento documento =documentoService.read(id);
+       
+            if (documento==null){
+                return ResponseEntity.notFound().build();
+            }else{
+                return ResponseEntity.ok().body(documento);
+            }
     }
     
     @GetMapping
