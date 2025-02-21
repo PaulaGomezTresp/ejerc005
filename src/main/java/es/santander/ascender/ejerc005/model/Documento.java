@@ -24,7 +24,7 @@ public class Documento {
     private String nombre;
 
     @Length(max = 15)
-    @Length(min = 0)
+    @NotNull
     private String extension;
 
     @NotNull
